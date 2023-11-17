@@ -4,13 +4,18 @@ from fpgrowth_py import fpgrowth
 import pickle
 
 # Data file constants
-DATASETS_FOLDER = "./datasets"
+DATASETS_FOLDER = "???"
 TRAIN_DATA_FILENAME = "2023_spotify_ds1.csv"
 UPDATE_DATA_FILENAME = "2023_spotify_ds2.csv"
 SONGS_FILENAME = "2023_spotify_songs.csv"
 
 
 def main():
+
+    if DATASETS_FOLDER == "???":
+        print("Hello! Storage is not linked!")
+        return -1
+
     # Reading input file with relevant columns
     df = pd.read_csv(
         f"{DATASETS_FOLDER}/{TRAIN_DATA_FILENAME}", usecols=["pid", "artist_name"]
