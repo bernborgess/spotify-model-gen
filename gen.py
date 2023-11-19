@@ -25,12 +25,6 @@ def main():
 
     print(itemSetList)
 
-    with open(f"{PV_FOLDER}/text.txt","w") as f:
-        f.write("Hello world\n")
-
-    if True == True:
-        return 
-
     result = fpgrowth(itemSetList, minSupRatio=0.05, minConf=0.5)
 
     if result == None:
