@@ -16,10 +16,8 @@ SONGS_FILENAME = "2023_spotify_songs.csv"
 """
 
 # Persistent Volume Access
-OUTPUT_FOLDER = "fakepv"
+OUTPUT_FOLDER = "/home/bernardoborges/project2-pv"
 OUTPUT_FILENAME = "model.pkl"
-
-# PV_FOLDER = "/home/bernardoborges/project2-pv"
 
 
 def main():
