@@ -1,5 +1,6 @@
 import pandas as pd
 from fpgrowth_py import fpgrowth
+from sys import platform
 
 import pickle
 
@@ -16,7 +17,11 @@ SONGS_FILENAME = "2023_spotify_songs.csv"
 """
 
 # Persistent Volume Access
-OUTPUT_FOLDER = "/home/bernardoborges/project2-pv"
+if platform == "win32":
+    OUTPUT_FOLDER = "../shared"
+else:
+    OUTPUT_FOLDER = "/home/bernardoborges/project2-pv"
+
 OUTPUT_FILENAME = "model.pkl"
 
 
