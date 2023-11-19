@@ -3,38 +3,47 @@ from fpgrowth_py import fpgrowth
 
 import pickle
 
+# Dummy Test Files
+DATASETS_FOLDER = "."
+TRAIN_DATA_FILENAME = "food.csv"
+
 # Data file constants
+"""
 DATASETS_FOLDER = "/home/datasets"
 TRAIN_DATA_FILENAME = "2023_spotify_ds1.csv"
 UPDATE_DATA_FILENAME = "2023_spotify_ds2.csv"
 SONGS_FILENAME = "2023_spotify_songs.csv"
+"""
 
 # Persistent Volume Access
-PV_FOLDER = "/home/bernardoborges/project2-pv"
+OUTPUT_FOLDER = "fakepv"
+OUTPUT_FILENAME = "model.pkl"
+
+# PV_FOLDER = "/home/bernardoborges/project2-pv"
+
 
 def main():
     # Reading input file with relevant columns
+    IN_COL = "track_name"
+    OUT_COL = "pid"
+
     df = pd.read_csv(
-        f"{DATASETS_FOLDER}/{TRAIN_DATA_FILENAME}", usecols=["pid", "artist_name"]
+        f"{DATASETS_FOLDER}/{TRAIN_DATA_FILENAME}", usecols=[IN_COL, OUT_COL]
     )
 
     # Grouping tracks by artists
-    gd = df.groupby("pid")["artist_name"].agg(list).reset_index()
+    gd = df.groupby(OUT_COL)[IN_COL].agg(list).reset_index()
 
-    itemSetList = list(gd["artist_name"])
+    itemSetList = list(gd[IN_COL])
 
-    print(itemSetList)
-
-    result = fpgrowth(itemSetList, minSupRatio=0.05, minConf=0.5)
+    result = fpgrowth(itemSetList, minSupRatio=0.1, minConf=0.5)
 
     if result == None:
         return
 
     freqItemSet, rules = result
 
-    print(rules)
-
-    with open(f"{PV_FOLDER}/model.pkl", "wb") as f:
+    with open(f"{OUTPUT_FOLDER}/{OUTPUT_FILENAME}", "wb") as f:
         pickle.dump(rules, f)
 
 
