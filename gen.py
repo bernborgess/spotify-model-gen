@@ -4,17 +4,11 @@ from sys import platform
 
 import pickle
 
-# Dummy Test Files
-DATASETS_FOLDER = "."
-TRAIN_DATA_FILENAME = "food.csv"
-
 # Data file constants
-"""
 DATASETS_FOLDER = "/home/datasets"
 TRAIN_DATA_FILENAME = "2023_spotify_ds1.csv"
 UPDATE_DATA_FILENAME = "2023_spotify_ds2.csv"
 SONGS_FILENAME = "2023_spotify_songs.csv"
-"""
 
 # Persistent Volume Access
 if platform == "win32":
@@ -39,7 +33,7 @@ def main():
 
     itemSetList = list(gd[IN_COL])
 
-    result = fpgrowth(itemSetList, minSupRatio=0.1, minConf=0.5)
+    result = fpgrowth(itemSetList, minSupRatio=0.01, minConf=0.2)
 
     if result == None:
         return
